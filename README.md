@@ -63,3 +63,37 @@ Test 1, 2, 4, and 6 cores to find the optimal generation speed for your specific
 
 ---
 *Built as a proof-of-concept for Edge AI on mobile.*
+
+---
+
+## 🔬 Deep Dive: Model Quantization (Q8 → Q4)
+
+Running Large Language Models entirely on a mobile processor presents a unique physical bottleneck: **Memory Bandwidth**. The CPU's ability to fetch gigabytes of model weights from the RAM for every single token is significantly slower than its actual mathematical processing speed.
+
+To drastically improve generation speed and lower RAM usage, we applied **Post-Training Quantization** using `llama.cpp` to compress the original 8-bit model (`Q8_0` at 531 MB) down to a 4-bit model (`Q4_K_M` at 373 MB). 
+
+By shrinking the model size by ~30%, the mobile device's RAM can feed the CPU architecture much faster, resulting in a **near-linear speedup in tokens/second** with almost negligible loss in model coherence.
+
+### How to reproduce our quantization pipeline:
+
+If you are building this project from source, you can re-quantize the weights yourself using the `llama-quantize` tool:
+
+1. **Compile the Quantization Tools (Windows/MSVC)**
+   Inside the `llama.cpp` directory, build the tools using CMake:
+   ```bash
+   mkdir build && cd build
+   cmake .. -DBUILD_SHARED_LIBS=OFF
+   cmake --build . --config Release --target llama-quantize
+   ```
+
+2. **Run the Compression**
+   Execute the compiled binary against your `Q8` base model, forcing a fallback to `Q4_K_M`:
+   ```bash
+   .\build\bin\Release\llama-quantize.exe --allow-requantize pocket-ai-expense-q8.gguf pocket-ai-expense-q4.gguf Q4_K_M
+   ```
+
+3. **Deploy**
+   Push the newly minted `q4` model to your physical device using ADB:
+   ```bash
+   adb push pocket-ai-expense-q4.gguf /sdcard/Download/
+   ```

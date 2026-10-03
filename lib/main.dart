@@ -47,7 +47,7 @@ class _BentoHomeScreenState extends State<BentoHomeScreen> {
     
     try {
       final String result = await platform.invokeMethod('loadModel', {
-        'path': '/sdcard/Download/pocket-ai-expense-q8.gguf',
+        'path': '/sdcard/Download/pocket-ai-expense-q4.gguf',
         'threads': _threadCount
       });
       setState(() {
