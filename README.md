@@ -1,4 +1,4 @@
-# Edge LLM (Edge AI Expense Tracker) 🧠📱
+# Edge LLM
 
 A cutting-edge Flutter application that runs Large Language Models (LLMs) **natively on your Android device** using entirely local compute. No cloud APIs, no internet required, and 100% privacy-preserving.
 
