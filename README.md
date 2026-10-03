@@ -69,13 +69,10 @@ Test 1, 2, 4, and 6 cores to find the optimal generation speed for your specific
 
 ## 📚 Edge AI Research Papers
 
-As part of this project, we have documented the severe hardware constraints of running AI natively on smartphones, and the software methodologies required to overcome them. 
+This repository includes three in-depth engineering research papers documenting the systems-level challenges of running LLMs natively on smartphones. These are not summaries — they are detailed technical write-ups covering architecture diagrams, hardware benchmarks, mathematical foundations, and root-cause analyses from our hands-on experimentation.
 
-Please read our detailed engineering write-ups:
-
-1. **[Edge AI Architecture: Bridging Flutter, Kotlin, and C++](docs/01_ARCHITECTURE.md)**  
-   *How we prevented Android from fatally crashing (ANR) by abstracting synchronous JNI workloads into Kotlin background threads.*
-2. **[Hardware Bottlenecks: big.LITTLE and Memory Bandwidth](docs/02_HARDWARE_BOTTLENECKS.md)**  
-   *Why allocating 8 threads is slower than 4 threads, and why the physical RAM bus—not the CPU—is the true bottleneck of Mobile AI.*
-3. **[Overcoming Memory Walls via Post-Training Quantization](docs/03_QUANTIZATION.md)**  
-   *How we achieved a near-linear token generation speedup by mathematically compressing an 8-bit model down to 4-bits, artificially widening the memory bandwidth.*
+| # | Paper | Length | Topic |
+|---|---|---|---|
+| 1 | **[Edge AI Architecture: Bridging Flutter, Kotlin, JNI, and C++](docs/01_ARCHITECTURE.md)** | ~2,500 words | Full 5-layer software stack dissection. Covers the JNI memory marshalling boundary, the ANR threading crisis, the end-to-end data flow trace of a single inference (17 steps from Dart to C++ and back), and why Kotlin Coroutines cause thread contention with llama.cpp's internal pthreads. |
+| 2 | **[Hardware Bottlenecks: big.LITTLE, Thermal Throttling, and the Memory Wall](docs/02_HARDWARE_BOTTLENECKS.md)** | ~3,000 words | Explains why 8 threads is slower than 2 threads (barrier synchronization across heterogeneous cores), includes real thermal throttling measurements over 60-second sustained inference, and presents the bandwidth arithmetic proving that memory bandwidth — not CPU FLOPS — is the dominant bottleneck. Includes comparison to datacenter A100 GPU bandwidth. |
+| 3 | **[Post-Training Quantization: From Q8 to Q4_K_M](docs/03_QUANTIZATION.md)** | ~3,500 words | Mathematical foundations of block quantization, the full llama.cpp quantization format zoo (Q4_0 through Q6_K), tensor-level breakdown of all 290 model tensors showing exactly which layers fell back from Q4_K to Q5_0 (and why: hidden dimension 896 is not divisible by 256), double-quantization error analysis, and future directions including IQ4_XS importance-aware quantization and QAT. |
