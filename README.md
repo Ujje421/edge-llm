@@ -1,15 +1,16 @@
-# Edge LLM
+# Edge LLM (Mobile AI Research Sandbox) 🧠📱
 
-A cutting-edge Flutter application that runs Large Language Models (LLMs) **natively on your Android device** using entirely local compute. No cloud APIs, no internet required, and 100% privacy-preserving.
+A cutting-edge experimental Flutter application designed to test the limits of running Large Language Models (LLMs) **natively on Android devices** using entirely local compute. 
 
-This project bridges a beautiful Flutter UI with the raw native C++ performance of [`llama.cpp`](https://github.com/ggerganov/llama.cpp) via JNI and Android NDK, allowing the AI to process natural language inputs (like extracting expense data) directly on the phone's CPU.
+While the current UI is themed around an "Expense Tracker," this repository serves as a broader **research sandbox**. The core objective is exploring how we can process highly sensitive personal information (like finances, health data, or private messages) directly on-device without ever sending data to cloud APIs. 100% offline, 100% privacy-preserving.
 
-## ✨ Features
-- **100% Local Inference:** Zero data leaves your device.
-- **Dynamic Threading:** Configurable CPU thread allocation via Flutter UI to benchmark performance across different mobile processors (big.LITTLE architectures).
-- **Asynchronous Execution:** Heavy C++ inference is offloaded to background threads, ensuring a buttery-smooth 60fps UI without ANR (App Not Responding) crashes.
-- **Modern "Bento Box" UI:** A clean, satisfying, pastel-themed interface.
-- **Quantized AI:** Optimized for 4-bit/8-bit quantized `.gguf` models to fit within mobile RAM constraints.
+This project bridges a beautiful Flutter frontend with the raw native C++ performance of [`llama.cpp`](https://github.com/ggerganov/llama.cpp) via JNI and Android NDK, allowing AI to parse natural language inputs directly on the phone's CPU architecture.
+
+## ✨ Research Focus & Features
+- **Zero-Trust Architecture:** Demonstrates how sensitive personal data can be parsed and categorized by an LLM without leaving the device.
+- **Hardware Benchmarking:** Configurable CPU thread allocation via Flutter UI to benchmark performance across asymmetric mobile processors (big.LITTLE architectures).
+- **Native Concurrency:** Heavy C++ inference is offloaded to background threads, ensuring a buttery-smooth 60fps UI without ANR (App Not Responding) crashes during long generations.
+- **Memory Optimization (Quantization):** heavily experimented with 4-bit/8-bit quantized `.gguf` models to fit massive neural networks within strict mobile RAM constraints.
 
 ---
 
